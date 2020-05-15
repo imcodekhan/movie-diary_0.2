@@ -1,0 +1,14 @@
+.flexContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.flexContainer>div {
+
+    width: 400px;
+    margin: 10px;
+
+
+
+}
