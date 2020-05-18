@@ -1,15 +1,28 @@
 import React from "react";
 import styles from "./SearchWrapper.module.css";
-const SearchWrapper = ({ handleChange, handleSearchButton, movieSearched }) => {
+import Tags from "./Tags";
+
+const SearchWrapper = ({
+  handleChange,
+  handleSearchButton,
+  movieSearched,
+  handleTagClick,
+}) => {
   return (
-    <div>
+    <div
+      style={{
+        position: "sticky",
+        top: 80,
+        zIndex: 10,
+        backgroundColor: "#FFD180",
+        display: "flex",
+      }}
+    >
+      <Tags handleTagClick={handleTagClick} />
       <div
         className={styles.search}
         style={{
-          marginLeft: "35%",
-          marginTop: 10,
-          marginBottom: 10,
-          width: "30%",
+          margin: "4% 3% 1% 2%",
         }}
       >
         <input

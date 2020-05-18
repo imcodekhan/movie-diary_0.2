@@ -3,38 +3,32 @@ import Navigation from "./shared/components/Navigation";
 import Movie from "./movie/Movie";
 import Diary from "./diary/Diary";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+const API_KEY = "k_Av4YcOKQ";
+const DUMMY = [
+  {
+    id: 1,
+    fullTitle: "batman",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.8CH926UPpZAdx-fpyDdBMAHaDt%26pid%3DApi&f=1",
+    watched: false,
+    note: "happy netflix",
+  },
+  {
+    id: 2,
+    fullTitle: "joker",
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kNEgLoeYdqvXWKIfAuAeIAHaD4%26pid%3DApi&f=1",
+    watched: false,
+    note: "happy netflix",
+  },
+];
 class App extends Component {
   state = {
-    defaultMovies: [],
-    searchedMovies: [
-      {
-        id: 1,
-        title: "batman",
-        image:
-          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.8CH926UPpZAdx-fpyDdBMAHaDt%26pid%3DApi&f=1",
-        watched: false,
-        note: "happy netflix",
-      },
-      {
-        id: 2,
-        title: "joker",
-        image:
-          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kNEgLoeYdqvXWKIfAuAeIAHaD4%26pid%3DApi&f=1",
-        watched: false,
-        note: "happy netflix",
-      },
-    ],
-    favMovies: [
-      {
-        id: 1,
-        title: "batman",
-        image:
-          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.8CH926UPpZAdx-fpyDdBMAHaDt%26pid%3DApi&f=1",
-        watched: false,
-        note: "happy netflix",
-      },
-    ],
+    defaultMovies: DUMMY,
+    searchedMovies: [],
+    favMovies: DUMMY,
     movieSearched: "",
+    tag: "Top250Movies",
   };
 
   handleChange = (e) => {
@@ -42,7 +36,7 @@ class App extends Component {
   };
 
   handleSearchButton = () => {
-    const searchUrl = `https://imdb-api.com/en/API/SearchMovie/k_f6Vzv9vK/${this.state.movieSearched}`;
+    const searchUrl = `https://imdb-api.com/en/API/SearchMovie/${API_KEY}/${this.state.movieSearched}`;
     fetch(searchUrl)
       .then((result) => result.json())
       .then((data) => this.setState({ searchedMovies: [...data.results] }))
@@ -93,12 +87,27 @@ class App extends Component {
     this.setState({ favMovies: [...tempState] });
   };
 
-  handleNoteButton = () => {
-    this.setState({ showNote: true });
+  handleTagClick = (event) => {
+    console.log(event.target.title, "hello");
+
+    this.setState({ tag: event.target.title });
   };
 
+  handleNoteSave = (index, newNote) => {
+    console.log(index, newNote);
+    const tempState = this.state.favMovies;
+    tempState[index].note = newNote;
+    this.setState({ favMovies: [...tempState] });
+  };
+
+  // componentDidUpdate() {
+  //   fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
+  //     .then((result) => result.json())
+  //     .then((data) => this.setState({ defaultMovies: [...data.items] }))
+  //     .catch((err) => console.log(err));
+  // }
   // componentDidMount() {
-  //   fetch("https://imdb-api.com/en/API/Top250Movies/k_f6Vzv9vK")
+  //   fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
   //     .then((result) => result.json())
   //     .then((data) => this.setState({ defaultMovies: [...data.items] }))
   //     .catch((err) => console.log(err));
@@ -108,7 +117,7 @@ class App extends Component {
     console.log("App rendered");
 
     return (
-      <div style={{ margin: "0px 300px" }}>
+      <div style={{ margin: "0px 300px", backgroundColor: "#FFE0B2" }}>
         <Router>
           <Navigation />
           <Switch>
@@ -121,6 +130,7 @@ class App extends Component {
                 handleChange={this.handleChange}
                 handleSearchButton={this.handleSearchButton}
                 handleHeartButton={this.handleHeartButton}
+                handleTagClick={this.handleTagClick}
               />
             </Route>
             <Route path="/diary">
@@ -128,8 +138,7 @@ class App extends Component {
                 favMovies={this.state.favMovies}
                 handleTabClick={this.handleTabClick}
                 handleDeleteButton={this.handleDeleteButton}
-                handleNoteButton={this.handleNoteButton}
-                // showNote={this.state.showNote}
+                handleNoteSave={this.handleNoteSave}
               />
             </Route>
           </Switch>

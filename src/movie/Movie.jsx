@@ -10,6 +10,7 @@ const Movie = ({
   handleChange,
   movieSearched,
   handleHeartButton,
+  handleTagClick,
 }) => {
   console.log("Movie rendered");
 
@@ -19,6 +20,7 @@ const Movie = ({
         handleChange={handleChange}
         handleSearchButton={handleSearchButton}
         movieSearched={movieSearched}
+        handleTagClick={handleTagClick}
       />
       <MovieList
         defaultMovies={defaultMovies}

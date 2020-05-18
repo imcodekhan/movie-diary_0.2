@@ -15,10 +15,13 @@ const MovieList = ({
             <MovieCard
               key={movie.id}
               id={movie.id}
-              title={movie.title}
+              title={movie.fullTitle}
               image={movie.image}
               handleHeartButton={handleHeartButton}
               favMovies={favMovies}
+              desc={movie.descritption}
+              rating={movie.imDbRating}
+              crew={movie.crew}
             />
           ))
         : searchedMovies.map((movie) => (
