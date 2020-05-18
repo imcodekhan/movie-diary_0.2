@@ -3,7 +3,7 @@ import Navigation from "./shared/components/Navigation";
 import Movie from "./movie/Movie";
 import Diary from "./diary/Diary";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-const API_KEY = "k_Av4YcOKQ";
+const API_KEY = "k_92BxqCro";
 const DUMMY = [
   {
     id: 1,
@@ -24,9 +24,9 @@ const DUMMY = [
 ];
 class App extends Component {
   state = {
-    defaultMovies: DUMMY,
+    defaultMovies: [],
     searchedMovies: [],
-    favMovies: DUMMY,
+    favMovies: [],
     movieSearched: "",
     tag: "Top250Movies",
   };
@@ -100,24 +100,24 @@ class App extends Component {
     this.setState({ favMovies: [...tempState] });
   };
 
-  // componentDidUpdate() {
-  //   fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
-  //     .then((result) => result.json())
-  //     .then((data) => this.setState({ defaultMovies: [...data.items] }))
-  //     .catch((err) => console.log(err));
-  // }
-  // componentDidMount() {
-  //   fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
-  //     .then((result) => result.json())
-  //     .then((data) => this.setState({ defaultMovies: [...data.items] }))
-  //     .catch((err) => console.log(err));
-  // }
+  componentDidUpdate() {
+    fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
+      .then((result) => result.json())
+      .then((data) => this.setState({ defaultMovies: [...data.items] }))
+      .catch((err) => console.log(err));
+  }
+  componentDidMount() {
+    fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
+      .then((result) => result.json())
+      .then((data) => this.setState({ defaultMovies: [...data.items] }))
+      .catch((err) => console.log(err));
+  }
 
   render() {
     console.log("App rendered");
 
     return (
-      <div style={{ margin: "0px 300px", backgroundColor: "#FFE0B2" }}>
+      <div style={{ margin: "0px 300px" }}>
         <Router>
           <Navigation />
           <Switch>

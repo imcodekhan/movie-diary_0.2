@@ -4,7 +4,7 @@ const Tags = ({ handleTagClick }) => {
   return (
     <div style={{ display: "flex", padding: 10 }}>
       <button
-        style={{ padding: 10, borderRadius: 25 }}
+        style={{ padding: 10, borderRadius: 25, fontWeight: 900 }}
         onClick={handleTagClick}
         title="Top250Movies"
         className="btn btn-default"
@@ -12,7 +12,12 @@ const Tags = ({ handleTagClick }) => {
         top 250 movies
       </button>
       <button
-        style={{ padding: 10, marginLeft: 10, borderRadius: 25 }}
+        style={{
+          padding: 10,
+          marginLeft: 10,
+          borderRadius: 25,
+          fontWeight: 900,
+        }}
         onClick={handleTagClick}
         title="Top250TVs"
         className="btn btn-default"
@@ -25,6 +30,7 @@ const Tags = ({ handleTagClick }) => {
           borderRadius: 25,
           marginRight: 10,
           marginLeft: 10,
+          fontWeight: 900,
         }}
         onClick={handleTagClick}
         title="MostPopluarMovies"
@@ -33,7 +39,7 @@ const Tags = ({ handleTagClick }) => {
         Most popular Movies
       </button>
       <button
-        style={{ padding: 10, borderRadius: 25 }}
+        style={{ padding: 10, borderRadius: 25, fontWeight: 900 }}
         onClick={handleTagClick}
         title="MostPopularTVs"
         className="btn btn-default"

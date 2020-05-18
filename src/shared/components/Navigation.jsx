@@ -11,20 +11,22 @@ const Navigation = (props) => {
         position: "sticky",
         top: 0,
         zIndex: 10,
-        backgroundColor: "#FF6D00",
+        backgroundColor: "black",
+        color: "white",
+        borderRadius: "5px 5px 5px 5px",
       }}
       className="navbar"
     >
       <i className="fa fa-video-camera fa-3x" aria-hidden="true"></i>
 
       <h2 style={{ flex: 5, margin: 20 }}>
-        <Link style={{ textDecoration: "none" }} to="/">
-          Movie-dairy
+        <Link style={{ textDecoration: "none", color: "white" }} to="/">
+          MovieDairy
         </Link>
       </h2>
 
-      <h3 style={{ marginRight: 10 }}>
-        <Link style={{ textDecoration: "none" }} to="/diary">
+      <h3 style={{ marginRight: 10, color: "white" }}>
+        <Link style={{ textDecoration: "none", color: "white" }} to="/diary">
           Diary
         </Link>
       </h3>
