@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Modal from "./NoteModal.jsx";
+import React from "react";
 
 const Tab = ({
   handleTabClick,

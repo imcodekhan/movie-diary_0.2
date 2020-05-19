@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Navigation from "./shared/components/Navigation";
 import Movie from "./movie/Movie";
 import Diary from "./diary/Diary";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-const API_KEY = "k_92BxqCro";
+const API_KEY = "k_E3gtk2BB";
 const DUMMY = [
   {
     id: 1,
@@ -100,12 +100,17 @@ class App extends Component {
     this.setState({ favMovies: [...tempState] });
   };
 
-  componentDidUpdate() {
-    fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
-      .then((result) => result.json())
-      .then((data) => this.setState({ defaultMovies: [...data.items] }))
-      .catch((err) => console.log(err));
+  componentDidUpdate(prevProps, prevState) {
+    console.log("component did update");
+
+    if (prevState.tag !== this.state.tag) {
+      fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
+        .then((result) => result.json())
+        .then((data) => this.setState({ defaultMovies: [...data.items] }))
+        .catch((err) => console.log(err));
+    }
   }
+
   componentDidMount() {
     fetch(`https://imdb-api.com/en/API/${this.state.tag}/${API_KEY}`)
       .then((result) => result.json())
