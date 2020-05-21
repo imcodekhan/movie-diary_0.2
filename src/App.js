@@ -2,7 +2,12 @@ import React, { Component, useEffect } from "react";
 import Navigation from "./shared/components/Navigation";
 import Movie from "./movie/Movie";
 import Diary from "./diary/Diary";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 const API_KEY = "k_E3gtk2BB";
 const DUMMY = [
   {
@@ -146,6 +151,7 @@ class App extends Component {
                 handleNoteSave={this.handleNoteSave}
               />
             </Route>
+            <Redirect to="/" />
           </Switch>
         </Router>
       </div>
