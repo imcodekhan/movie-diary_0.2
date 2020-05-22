@@ -30,7 +30,7 @@ const Tab = ({
             backgroundColor: movie.watched ? "white" : "grey",
             height: 84,
           }}
-          onClick={() => handleTabClick(movie, index)}
+          onClick={() => handleTabClick(index)}
         >
           <img
             style={{ height: 50, width: 50, margin: "15px 15px" }}

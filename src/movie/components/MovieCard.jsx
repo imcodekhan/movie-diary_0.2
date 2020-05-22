@@ -10,10 +10,10 @@ const MovieCard = ({
   rating,
 }) => {
   let favStatus = favMovies.find((movie) => {
-    console.log(movie.id, id);
+    // console.log(movie.id, id);
     return movie.id === id;
   });
-  console.log("Movie Card rendered", favStatus);
+  // console.log("Movie Card rendered", favStatus);
   return (
     <div className="card h-100">
       <div className="card-image">
