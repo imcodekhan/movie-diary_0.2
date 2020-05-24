@@ -6,7 +6,6 @@ const Diary = ({
   favMovies,
   handleTabClick,
   handleDeleteButton,
-  handleNoteButton,
   handleNoteSave,
 }) => {
   console.log("Diary rendered");
@@ -56,7 +55,6 @@ const Diary = ({
               key={movie.id}
               handleTabClick={handleTabClick}
               handleDeleteButton={handleDeleteButton}
-              handleNoteButton={handleNoteButton}
               movie={movie}
               index={index}
               showNote={showNote}

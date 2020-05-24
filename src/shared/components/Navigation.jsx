@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
+import userContext from "../../sign/userContext";
 
-const Navigation = (props) => {
+const Navigation = ({ handleLogout }) => {
+  const loginStatus = useContext(userContext);
   return (
     <div
       style={{
@@ -26,6 +28,14 @@ const Navigation = (props) => {
       </h2>
 
       <h3 style={{ marginRight: 10, color: "white" }}>
+        {loginStatus ? (
+          <div onClick={handleLogout}>Logout</div>
+        ) : (
+          <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+            Login
+          </Link>
+        )}
+
         <Link style={{ textDecoration: "none", color: "white" }} to="/diary">
           Diary
         </Link>
