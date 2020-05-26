@@ -8,4 +8,6 @@ export const ACTIONS = {
   SAVE_MOVIE: "save-movie",
   ADD_FAV_MOVIE: "add-fav-movie",
   REMOVE_FAV_MOVIE: "remove-fav-movie",
+  TOGGLE_LOGIN: "toggle-login",
+  LOAD_FAV_MOVIES: "load-fav-movies",
 };

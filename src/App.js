@@ -2,43 +2,20 @@ import React, { useReducer, useEffect } from "react";
 import Navigation from "./shared/components/Navigation";
 import Movie from "./movie/Movie";
 import Diary from "./diary/Diary";
+import FormikLogin from "./sign/Login";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
-
 import { ACTIONS } from "./shared/utils/Actions";
+import FormikSignup from "./sign/Signup";
+import userContext from "./sign/userContext";
+import { history } from "react-router-dom";
+import { users } from "./shared/utils/DummyData";
 
 const API_KEY = "k_92BxqCro";
-
-// const DUMMY = [
-//   {
-//     id: 1,
-//     fullTitle: "batman",
-//     image:
-//       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.8CH926UPpZAdx-fpyDdBMAHaDt%26pid%3DApi&f=1",
-//     watched: false,
-//     note: "happy netflix",
-//   },
-//   {
-//     id: 2,
-//     fullTitle: "joker",
-//     image:
-//       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kNEgLoeYdqvXWKIfAuAeIAHaD4%26pid%3DApi&f=1",
-//     watched: false,
-//     note: "happy netflix",
-//   },
-//   {
-//     id: 3,
-//     fullTitle: "joker",
-//     image:
-//       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kNEgLoeYdqvXWKIfAuAeIAHaD4%26pid%3DApi&f=1",
-//     watched: false,
-//     note: "happy netflix",
-//   },
-// ];
 
 //Reducer function for Changing State
 
@@ -90,6 +67,16 @@ const reducer = (state, action) => {
         ...state,
         favMovies: action.payload,
       };
+    case ACTIONS.TOGGLE_LOGIN:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case ACTIONS.LOAD_FAV_MOVIES:
+      return {
+        ...state,
+        favMovies: action.payload,
+      };
     default:
       return state;
   }
@@ -127,6 +114,7 @@ const App = () => {
     favMovies: [],
     movieSearched: "",
     tag: "Top250Movies",
+    user: false,
   });
 
   const handleChange = (e) => {
@@ -188,6 +176,22 @@ const App = () => {
     }
   };
 
+  const handleSignUp = (user) => {
+    console.log("hello world from signup");
+    const newUser = { ...user, favMovies: [] };
+    users.push(newUser);
+    dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
+  };
+  const handleLogin = (user) => {
+    console.log("hello from login handle");
+    dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
+    dispatch({ type: ACTIONS.LOAD_FAV_MOVIES, payload: user.favMovies });
+  };
+  const handleLogout = () => {
+    dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: false });
+    dispatch({ type: ACTIONS.LOAD_FAV_MOVIES, payload: [] });
+  };
+
   const handleDeleteButton = (index) => {
     const tempState = [...state.favMovies];
     tempState.splice(index, 1);
@@ -202,14 +206,14 @@ const App = () => {
     dispatch({ type: ACTIONS.SAVE_NOTE, payload: { index, newNote } });
   };
 
-  useEffect(() => {
-    fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
-      .then((result) => result.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
-      )
-      .catch((err) => console.log(err));
-  }, [state.tag]);
+  // useEffect(() => {
+  //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
+  //     .then((result) => result.json())
+  //     .then((data) =>
+  //       dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
+  //     )
+  //     .catch((err) => console.log(err));
+  // }, [state.tag]);
 
   // useEffect(() => {
   //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
@@ -219,36 +223,44 @@ const App = () => {
   //     )
   //     .catch((err) => console.log(err));
   // }, []);
-
+  console.log(users);
   return (
-    <div style={{ margin: "0px 300px" }}>
-      <Router>
-        <Navigation />
-        <Switch>
-          <Route path="/" exact>
-            <Movie
-              defaultMovies={state.defaultMovies}
-              searchedMovies={state.searchedMovies}
-              favMovies={state.favMovies}
-              movieSearched={state.movieSearched}
-              handleChange={handleChange}
-              handleSearchButton={handleSearchButton}
-              handleHeartButton={handleHeartButton}
-              handleTagClick={handleTagClick}
-            />
-          </Route>
-          <Route path="/diary">
-            <Diary
-              favMovies={state.favMovies}
-              handleTabClick={handleTabClick}
-              handleDeleteButton={handleDeleteButton}
-              handleNoteSave={handleNoteSave}
-            />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
-      </Router>
-    </div>
+    <userContext.Provider value={state.user}>
+      <div style={{ margin: "0px 300px" }}>
+        <Router>
+          <Navigation handleLogout={handleLogout} />
+          <Switch>
+            <Route path="/" exact>
+              <Movie
+                defaultMovies={state.defaultMovies}
+                searchedMovies={state.searchedMovies}
+                favMovies={state.favMovies}
+                movieSearched={state.movieSearched}
+                handleChange={handleChange}
+                handleSearchButton={handleSearchButton}
+                handleHeartButton={handleHeartButton}
+                handleTagClick={handleTagClick}
+              />
+            </Route>
+            <Route path="/diary">
+              <Diary
+                favMovies={state.favMovies}
+                handleTabClick={handleTabClick}
+                handleDeleteButton={handleDeleteButton}
+                handleNoteSave={handleNoteSave}
+              />
+            </Route>
+            <Route path="/login" exact>
+              <FormikLogin handleLogin={handleLogin} />
+            </Route>
+            <Route path="/signup" exact>
+              <FormikSignup handleSignUp={handleSignUp} />
+            </Route>
+            <Redirect to="/" />
+          </Switch>
+        </Router>
+      </div>
+    </userContext.Provider>
   );
 };
 
