@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Tab from "./components/Tab";
 import { Link } from "react-router-dom";
+import userContext from "../sign/userContext";
 
 const Diary = ({
   favMovies,
@@ -8,12 +9,15 @@ const Diary = ({
   handleDeleteButton,
   handleNoteSave,
 }) => {
+  const login = useContext(userContext);
   console.log("Diary rendered");
+  console.log(login);
   const [showNote, setShowNote] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [newNote, setNewNote] = useState("");
   return (
     <div className="container">
+      {login ? <div>welocme to {login.diaryname}</div> : ""}
       <ul
         className="z-depth-3"
         style={{ margin: "10% 20%", display: "flex", flexDirection: "column" }}

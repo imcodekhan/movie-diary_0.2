@@ -9,10 +9,11 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
 import { ACTIONS } from "./shared/utils/Actions";
-import Signup from "./sign/Signup";
+import FormikSignup from "./sign/Signup";
 import userContext from "./sign/userContext";
+import { history } from "react-router-dom";
+import { users } from "./shared/utils/DummyData";
 
 const API_KEY = "k_92BxqCro";
 
@@ -70,6 +71,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case ACTIONS.LOAD_FAV_MOVIES:
+      return {
+        ...state,
+        favMovies: action.payload,
       };
     default:
       return state;
@@ -170,11 +176,20 @@ const App = () => {
     }
   };
 
-  const handleLogin = (user) => {
+  const handleSignUp = (user) => {
+    console.log("hello world from signup");
+    const newUser = { ...user, favMovies: [] };
+    users.push(newUser);
     dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
+  };
+  const handleLogin = (user) => {
+    console.log("hello from login handle");
+    dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
+    dispatch({ type: ACTIONS.LOAD_FAV_MOVIES, payload: user.favMovies });
   };
   const handleLogout = () => {
     dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: false });
+    dispatch({ type: ACTIONS.LOAD_FAV_MOVIES, payload: [] });
   };
 
   const handleDeleteButton = (index) => {
@@ -208,7 +223,7 @@ const App = () => {
   //     )
   //     .catch((err) => console.log(err));
   // }, []);
-
+  console.log(users);
   return (
     <userContext.Provider value={state.user}>
       <div style={{ margin: "0px 300px" }}>
@@ -239,7 +254,7 @@ const App = () => {
               <FormikLogin handleLogin={handleLogin} />
             </Route>
             <Route path="/signup" exact>
-              <Signup />
+              <FormikSignup handleSignUp={handleSignUp} />
             </Route>
             <Redirect to="/" />
           </Switch>

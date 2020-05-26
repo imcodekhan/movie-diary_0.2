@@ -3,61 +3,80 @@ import { Link } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import { Button } from "@material-ui/core";
 import * as yup from "yup";
+import { users } from "../shared/utils/DummyData";
+import { Paper, Container } from "@material-ui/core";
 
 const Signup = ({ values, touched, errors, isSubmitting }) => (
-  <Form href="/diary">
-    <div>
-      <label htmlFor="firstname">First Name</label>
-      <Field name="firstname" type="text" placeholder="jitu" />
-      {touched.firstname && errors.firstname && <p>{errors.firstname}</p>}
-    </div>
-    <div>
-      <label htmlFor="lastname">Last Name</label>
-      <Field name="lastname" type="text" placeholder="jitender" />
-      {touched.lastname && errors.lastname && <p>{errors.lastname}</p>}
-    </div>
-    <div>
-      <label htmlFor="email">Email</label>
-      <Field name="email" type="email" placeholder="jitu@example.com" />
-      {touched.email && errors.email && <p>{errors.email}</p>}
-    </div>
-    <div>
-      <label htmlFor="password">
-        <h3>Password</h3>
-      </label>
+  <Paper elevation={3}>
+    <Container>
+      <Form href="/diary" style={{ margin: 20, padding: 20 }}>
+        <div>
+          <label htmlFor="firstname">
+            <h3>First Name</h3>
+          </label>
+          <Field name="firstname" type="text" placeholder="jitu" />
+          {touched.firstname && errors.firstname && <p>{errors.firstname}</p>}
+        </div>
+        <div>
+          <label htmlFor="lastname">
+            <h3>Last Name</h3>
+          </label>
+          <Field name="lastname" type="text" placeholder="jitender" />
+          {touched.lastname && errors.lastname && <p>{errors.lastname}</p>}
+        </div>
+        <div>
+          <label htmlFor="email">
+            <h3>Email</h3>
+          </label>
+          <Field name="email" type="email" placeholder="jitu@example.com" />
+          {touched.email && errors.email && <p>{errors.email}</p>}
+        </div>
+        <div>
+          <label htmlFor="password">
+            <h3>Password</h3>
+          </label>
 
-      <Field type="text" name="password" placeholder="password" />
-      {touched.password && errors.password && <p>{errors.password}</p>}
-    </div>
-    <div>
-      <label htmlFor="confirmpassword">Confrim Password</label>
-      <Field
-        name="confirmpassword"
-        type="text"
-        placeholder="confrim password"
-      />
-      {touched.confirmpassword && errors.confirmpassword && (
-        <p>{errors.confirmpassword}</p>
-      )}
-    </div>
-    <div>
-      <label htmlFor="diaryname">Diary Name</label>
-      <Field name="diaryname" type="text" placeholder="juke cook book" />
-      {touched.diaryname && errors.diaryname && <p>{errors.diaryname}</p>}
-    </div>
-    <Button
-      type="submit"
-      disabled={isSubmitting}
-      variant="contained"
-      color="secondary"
-    >
-      signup
-    </Button>
-    <Button variant="contained" color="default">
-      <Link to="/login">Login</Link>
-    </Button>
-    <pre>{JSON.stringify({ values, touched, errors }, null, 2)}</pre>
-  </Form>
+          <Field type="text" name="password" placeholder="password" />
+          {touched.password && errors.password && <p>{errors.password}</p>}
+        </div>
+        <div>
+          <label htmlFor="confirmpassword">
+            <h3>Confrim Password</h3>
+          </label>
+          <Field
+            name="confirmpassword"
+            type="text"
+            placeholder="confrim password"
+          />
+          {touched.confirmpassword && errors.confirmpassword && (
+            <p>{errors.confirmpassword}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="diaryname">
+            <h3>Diary Name</h3>
+          </label>
+          <Field name="diaryname" type="text" placeholder="juke cook book" />
+          {touched.diaryname && errors.diaryname && <p>{errors.diaryname}</p>}
+        </div>
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          variant="contained"
+          color="secondary"
+          style={{ margin: 10 }}
+        >
+          signup
+        </Button>
+        <Link to="/login">
+          <Button variant="contained" color="default">
+            Login
+          </Button>
+        </Link>
+        {/* <pre>{JSON.stringify({ values, touched, errors }, null, 2)}</pre> */}
+      </Form>
+    </Container>
+  </Paper>
 );
 const FormikSignup = withFormik({
   mapPropsToValues({ email, password, firstname, lastname, diaryname }) {
@@ -81,16 +100,18 @@ const FormikSignup = withFormik({
 
     diaryname: yup.string().required(),
   }),
-  handleSubmit(values, history, { setSubmitting, setErrors, resetForm }) {
+  handleSubmit(values, { setSubmitting, setErrors, resetForm, props }) {
     setTimeout(() => {
-      if (values.email === "jitu@example.com") {
-        setErrors({ email: "The email has taken" });
-      } else {
-        console.log(values);
+      const user = users.find((u) => u.email === values.email);
 
+      if (user === undefined) {
+        console.log(values);
+        props.handleSignUp(values);
         resetForm();
-        history.push("/");
+      } else if (user.email === values.email) {
+        setErrors({ email: "email is taken" });
       }
+
       setSubmitting(false);
     }, 2000);
   },

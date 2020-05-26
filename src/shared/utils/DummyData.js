@@ -6,7 +6,7 @@ export let users = [
     email: "jitu@example.com",
     password: "jitu@123",
     diaryname: "jitu theater",
-    favMOvies: [
+    favMovies: [
       {
         id: 1,
         fullTitle: "batman",
