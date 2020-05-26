@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { withFormik, Field, Form } from "formik";
 import * as yup from "yup";
 import { Button, Container, Paper } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { users } from "../shared/utils/DummyData";
 
 const Login = ({ errors, touched, isSubmitting }) => {
@@ -47,7 +47,7 @@ const Login = ({ errors, touched, isSubmitting }) => {
 };
 
 const FormikLogin = withFormik({
-  mapPropsToValues({ email, password, handleLogin }) {
+  mapPropsToValues({ email, password }) {
     return {
       email: email || "jitu@example.com",
       password: password || "jitu@123456",
@@ -57,6 +57,7 @@ const FormikLogin = withFormik({
   handleSubmit(values, { setSubmitting, setErrors, resetForm, props }) {
     setTimeout(() => {
       const user = users.find((u) => u.email === values.email);
+      setSubmitting(false);
 
       if (user === undefined) {
         setErrors({ email: "Email is wrong" });
@@ -66,11 +67,9 @@ const FormikLogin = withFormik({
         } else {
           props.handleLogin(user);
           resetForm();
-          //redirect to /diary
+          props.history.push("/");
         }
       }
-
-      setSubmitting(false);
     }, 2000);
   },
   validationSchema: yup.object({
@@ -79,4 +78,4 @@ const FormikLogin = withFormik({
   }),
 })(Login);
 
-export default FormikLogin;
+export default withRouter(FormikLogin);

@@ -36,9 +36,15 @@ const Navigation = ({ handleLogout }) => {
           </Link>
         )}
 
-        <Link style={{ textDecoration: "none", color: "white" }} to="/diary">
-          Diary
-        </Link>
+        {loginStatus ? (
+          <Link style={{ textDecoration: "none", color: "white" }} to="/diary">
+            Diary
+          </Link>
+        ) : (
+          <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+            Diary
+          </Link>
+        )}
       </h3>
     </div>
   );

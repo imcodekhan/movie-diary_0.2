@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import { Button } from "@material-ui/core";
 import * as yup from "yup";
 import { users } from "../shared/utils/DummyData";
 import { Paper, Container } from "@material-ui/core";
 
-const Signup = ({ values, touched, errors, isSubmitting }) => (
+const Signup = ({ touched, errors, isSubmitting }) => (
   <Paper elevation={3}>
     <Container>
       <Form href="/diary" style={{ margin: 20, padding: 20 }}>
@@ -73,7 +73,6 @@ const Signup = ({ values, touched, errors, isSubmitting }) => (
             Login
           </Button>
         </Link>
-        {/* <pre>{JSON.stringify({ values, touched, errors }, null, 2)}</pre> */}
       </Form>
     </Container>
   </Paper>
@@ -103,17 +102,16 @@ const FormikSignup = withFormik({
   handleSubmit(values, { setSubmitting, setErrors, resetForm, props }) {
     setTimeout(() => {
       const user = users.find((u) => u.email === values.email);
-
+      setSubmitting(false);
       if (user === undefined) {
         console.log(values);
         props.handleSignUp(values);
         resetForm();
+        props.history.push("/");
       } else if (user.email === values.email) {
         setErrors({ email: "email is taken" });
       }
-
-      setSubmitting(false);
     }, 2000);
   },
 })(Signup);
-export default FormikSignup;
+export default withRouter(FormikSignup);

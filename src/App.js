@@ -206,23 +206,23 @@ const App = () => {
     dispatch({ type: ACTIONS.SAVE_NOTE, payload: { index, newNote } });
   };
 
-  // useEffect(() => {
-  //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
-  //     .then((result) => result.json())
-  //     .then((data) =>
-  //       dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
-  //     )
-  //     .catch((err) => console.log(err));
-  // }, [state.tag]);
+  useEffect(() => {
+    fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
+      .then((result) => result.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
+      )
+      .catch((err) => console.log(err));
+  }, [state.tag]);
 
-  // useEffect(() => {
-  //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
-  //     .then((result) => result.json())
-  //     .then((data) =>
-  //       dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
-  //     )
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
+      .then((result) => result.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
+      )
+      .catch((err) => console.log(err));
+  }, []);
   console.log(users);
   return (
     <userContext.Provider value={state.user}>

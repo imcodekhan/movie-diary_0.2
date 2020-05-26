@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { withRouter } from "react-router-dom";
+import userContext from "../../sign/userContext";
 
 const MovieCard = ({
   id,
@@ -8,12 +10,15 @@ const MovieCard = ({
   favMovies,
   crew,
   rating,
+  history,
 }) => {
+  const loginStatus = useContext(userContext);
+  // console.log(loginStatus, history);
+
   let favStatus = favMovies.find((movie) => {
-    // console.log(movie.id, id);
     return movie.id === id;
   });
-  // console.log("Movie Card rendered", favStatus);
+
   return (
     <div className="card h-100">
       <div className="card-image">
@@ -21,7 +26,11 @@ const MovieCard = ({
 
         <div
           className="btn-floating halfway-fab waves-effect waves-light red"
-          onClick={() => handleHeartButton(id, title, image)}
+          onClick={() => {
+            loginStatus
+              ? handleHeartButton(id, title, image)
+              : history.push("/login");
+          }}
         >
           {favStatus ? (
             <i className="fa fa-heart" aria-hidden="true"></i>
@@ -39,4 +48,4 @@ const MovieCard = ({
   );
 };
 
-export default MovieCard;
+export default withRouter(MovieCard);
