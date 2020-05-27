@@ -27,21 +27,30 @@ const Navigation = ({ handleLogout }) => {
         </Link>
       </h2>
 
-      <h3 style={{ marginRight: 10, color: "white" }}>
+      <h3 style={{ margin: 10, color: "white" }}>
         {loginStatus ? (
           <div onClick={handleLogout}>Logout</div>
         ) : (
-          <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+          <Link
+            style={{ textDecoration: "none", color: "white", margin: 10 }}
+            to="/login"
+          >
             Login
           </Link>
         )}
 
         {loginStatus ? (
-          <Link style={{ textDecoration: "none", color: "white" }} to="/diary">
+          <Link
+            style={{ textDecoration: "none", color: "white", margin: 10 }}
+            to="/diary"
+          >
             Diary
           </Link>
         ) : (
-          <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+          <Link
+            style={{ textDecoration: "none", color: "white", margin: 10 }}
+            to="/login"
+          >
             Diary
           </Link>
         )}

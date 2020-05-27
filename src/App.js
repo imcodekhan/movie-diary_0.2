@@ -12,7 +12,6 @@ import {
 import { ACTIONS } from "./shared/utils/Actions";
 import FormikSignup from "./sign/Signup";
 import userContext from "./sign/userContext";
-import { history } from "react-router-dom";
 import { users } from "./shared/utils/DummyData";
 
 const API_KEY = "k_92BxqCro";
@@ -151,18 +150,15 @@ const App = () => {
     } else {
       let isFound = false;
       state.favMovies.forEach((movie, index) => {
-        console.log(movie.id === id, index);
         if (movie.id === id) {
           isFound = index;
         }
       });
       if (isFound !== false) {
-        console.log("say hello", isFound);
         const tempState = [...state.favMovies];
         tempState.splice(isFound, 1);
         dispatch({ type: ACTIONS.REMOVE_FAV_MOVIE, payload: tempState });
       } else {
-        console.log("hello from undefined");
         const favMovie = {
           id,
           title,
@@ -177,13 +173,11 @@ const App = () => {
   };
 
   const handleSignUp = (user) => {
-    console.log("hello world from signup");
     const newUser = { ...user, favMovies: [] };
     users.push(newUser);
     dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
   };
   const handleLogin = (user) => {
-    console.log("hello from login handle");
     dispatch({ type: ACTIONS.TOGGLE_LOGIN, payload: user });
     dispatch({ type: ACTIONS.LOAD_FAV_MOVIES, payload: user.favMovies });
   };
@@ -206,24 +200,24 @@ const App = () => {
     dispatch({ type: ACTIONS.SAVE_NOTE, payload: { index, newNote } });
   };
 
-  useEffect(() => {
-    fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
-      .then((result) => result.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
-      )
-      .catch((err) => console.log(err));
-  }, [state.tag]);
+  // useEffect(() => {
+  //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
+  //     .then((result) => result.json())
+  //     .then((data) =>
+  //       dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
+  //     )
+  //     .catch((err) => console.log(err));
+  // }, [state.tag]);
 
-  useEffect(() => {
-    fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
-      .then((result) => result.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
-      )
-      .catch((err) => console.log(err));
-  }, []);
-  console.log(users);
+  // useEffect(() => {
+  //   fetch(`https://imdb-api.com/en/API/${state.tag}/${API_KEY}`)
+  //     .then((result) => result.json())
+  //     .then((data) =>
+  //       dispatch({ type: ACTIONS.SAVE_MOVIE, payload: [...data.items] })
+  //     )
+  //     .catch((err) => console.log(err));
+  // }, []);
+
   return (
     <userContext.Provider value={state.user}>
       <div style={{ margin: "0px 300px" }}>
