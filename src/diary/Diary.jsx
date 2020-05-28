@@ -15,7 +15,7 @@ const Diary = ({
   const [newNote, setNewNote] = useState("");
   return (
     <div data-testid="diary" className="container">
-      {login ? <h3>welocme to {login.diaryname}</h3> : ""}
+      <h3 data-testid="diary-name">welcome to {login.diaryname}</h3>
       <ul
         className="z-depth-3"
         style={{ margin: "10% 20%", display: "flex", flexDirection: "column" }}

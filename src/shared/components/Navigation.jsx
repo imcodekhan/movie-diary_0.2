@@ -32,12 +32,14 @@ const Navigation = ({ handleLogout }) => {
         </Link>
       </h2>
 
-      <h3 style={{ margin: 10, color: "white" }}>
+      <h3 data-testid="login-status" style={{ margin: 10, color: "white" }}>
         {loginStatus ? (
-          <div onClick={handleLogout}>Logout</div>
+          <div data-testid="logout-flag" onClick={handleLogout}>
+            Logout
+          </div>
         ) : (
           <Link
-            data-testid="login-link"
+            data-testid="login-link-1"
             style={{ textDecoration: "none", color: "white", margin: 10 }}
             to="/login"
           >
@@ -55,7 +57,7 @@ const Navigation = ({ handleLogout }) => {
           </Link>
         ) : (
           <Link
-            data-testid="login-link"
+            data-testid="login-link-2"
             style={{ textDecoration: "none", color: "white", margin: 10 }}
             to="/login"
           >

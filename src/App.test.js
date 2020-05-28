@@ -8,10 +8,6 @@ import {
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "./App";
-import userContext from "./sign/userContext";
-import Diary from "./diary/Diary";
-import axiosMock from "axios";
-import SearchWrapper from "./movie/components/SearchWrapper";
 
 afterEach(cleanup);
 
@@ -35,35 +31,20 @@ it("should render homepage", () => {
   const { container, getByTestId } = renderWithRouter(<App />);
   const navbar = getByTestId("navbar");
   const link = getByTestId("movie_diary-link");
-  //  expect(container).toMatch("Home page");
+  expect(container.firstChild).toHaveTextContent("top 250 movies");
   expect(navbar).toContainElement(link);
-  console.log(container.contains);
 });
 
-//testing context
+it("should navigate to the login page", () => {
+  const { container, getByTestId } = renderWithRouter(<App />);
 
-const renderWithContext = (component) => {
-  return {
-    ...render(<App value={userContext}>{component}</App>),
-  };
-};
+  fireEvent.click(getByTestId("login-link-1"));
 
-// it("checks if initial state is equal to 0", () => {
-//   const { getByTestId } = renderWithContext(<Diary />);
-//   expect(getByTestId("counter")).toHaveTextContent("0");
-// });
+  expect(container.firstChild).toHaveTextContent("Email");
+});
 
-//testing movie search
-
-jest.mock("axios");
-it("should load and display the data", async () => {
-  const url = "/mockUrl";
-  axiosMock.get.mockResolvedValueOnce({
-    data: { mockUrl: "hello from mock url" },
-  });
-  const { getByTestId } = render(<App url={url} />);
-  fireEvent.click(getByTestId("search-button"));
-  // const mockData = await waitForElement(() => getByTestId(""));
-  expect(axiosMock.get).toHaveBeenCalledTimes(1);
-  expect(axiosMock.get).toHaveBeenCalledWith(url);
+it("should login in 2s", async () => {
+  const { getByTestId } = renderWithRouter(<App />);
+  fireEvent.click(getByTestId("login-button"));
+  const loginStatus = await waitForElement(() => getByTestId("diary-name"));
 });

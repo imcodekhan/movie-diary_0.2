@@ -15,7 +15,12 @@ const Login = ({ errors, touched, isSubmitting }) => {
               <h3>Email</h3>
             </label>
 
-            <Field type="email" name="email" placeholder="jitu@example.com" />
+            <Field
+              data-testid="email"
+              type="email"
+              name="email"
+              placeholder="jitu@example.com"
+            />
             {touched.email && errors.email && <p>{errors.email}</p>}
           </div>
           <div>
@@ -32,6 +37,7 @@ const Login = ({ errors, touched, isSubmitting }) => {
             color="secondary"
             disabled={isSubmitting}
             style={{ margin: 10 }}
+            data-testid="login-button"
           >
             Login
           </Button>

@@ -14,7 +14,6 @@ const Movie = ({
 }) => {
   return (
     <div className="home-page">
-      movie-diary
       <SearchWrapper
         handleChange={handleChange}
         handleSearchButton={handleSearchButton}
