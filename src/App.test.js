@@ -8,6 +8,7 @@ import {
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "./App";
+import Login from "./sign/Login";
 
 afterEach(cleanup);
 
@@ -43,8 +44,8 @@ it("should navigate to the login page", () => {
   expect(container.firstChild).toHaveTextContent("Email");
 });
 
-it("should login in 2s", async () => {
-  const { getByTestId } = renderWithRouter(<App />);
-  fireEvent.click(getByTestId("login-button"));
-  const loginStatus = await waitForElement(() => getByTestId("diary-name"));
+it("should submit after 5s", () => {
+  const { container, getByTestId } = renderWithRouter(<App />);
+  fireEvent.click(getByTestId("login-link-1"));
+  console.log(getByTestId("login-button"));
 });
