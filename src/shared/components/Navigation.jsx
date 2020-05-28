@@ -18,11 +18,16 @@ const Navigation = ({ handleLogout }) => {
         borderRadius: "5px 5px 5px 5px",
       }}
       className="navbar"
+      data-testid="navbar"
     >
       <i className="fa fa-video-camera fa-3x" aria-hidden="true"></i>
 
       <h2 style={{ flex: 5, margin: 20 }}>
-        <Link style={{ textDecoration: "none", color: "white" }} to="/">
+        <Link
+          data-testid="movie_diary-link"
+          style={{ textDecoration: "none", color: "white" }}
+          to="/"
+        >
           MovieDairy
         </Link>
       </h2>
@@ -32,6 +37,7 @@ const Navigation = ({ handleLogout }) => {
           <div onClick={handleLogout}>Logout</div>
         ) : (
           <Link
+            data-testid="login-link"
             style={{ textDecoration: "none", color: "white", margin: 10 }}
             to="/login"
           >
@@ -41,6 +47,7 @@ const Navigation = ({ handleLogout }) => {
 
         {loginStatus ? (
           <Link
+            data-testid="diary-link"
             style={{ textDecoration: "none", color: "white", margin: 10 }}
             to="/diary"
           >
@@ -48,6 +55,7 @@ const Navigation = ({ handleLogout }) => {
           </Link>
         ) : (
           <Link
+            data-testid="login-link"
             style={{ textDecoration: "none", color: "white", margin: 10 }}
             to="/login"
           >

@@ -32,6 +32,7 @@ const SearchWrapper = ({
           value={movieSearched}
         />
         <button
+          data-testid="search-button"
           type="submit"
           className={styles.searchButton}
           onClick={handleSearchButton}

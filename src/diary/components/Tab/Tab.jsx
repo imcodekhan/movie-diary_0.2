@@ -65,7 +65,6 @@ const Tab = ({
         >
           <i
             className="fa fa-book fa-2x "
-            style={{}}
             aria-hidden="true"
             onClick={() => {
               showNote === movie.id
@@ -115,8 +114,6 @@ const Tab = ({
             <button
               className="btn btn-warning"
               onClick={() => {
-                console.log("close clicked");
-
                 setShowModal(false);
                 setNewNote(movie.note);
               }}

@@ -12,10 +12,9 @@ const Movie = ({
   handleHeartButton,
   handleTagClick,
 }) => {
-  console.log("Movie rendered");
-
   return (
-    <div>
+    <div className="home-page">
+      movie-diary
       <SearchWrapper
         handleChange={handleChange}
         handleSearchButton={handleSearchButton}

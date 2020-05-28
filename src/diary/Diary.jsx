@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Tab from "./components/Tab";
+import Tab from "./components/Tab/Tab";
 import { Link } from "react-router-dom";
 import userContext from "../sign/userContext";
 
@@ -10,13 +10,11 @@ const Diary = ({
   handleNoteSave,
 }) => {
   const login = useContext(userContext);
-  console.log("Diary rendered");
-  console.log(login);
   const [showNote, setShowNote] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [newNote, setNewNote] = useState("");
   return (
-    <div className="container">
+    <div data-testid="diary" className="container">
       {login ? <h3>welocme to {login.diaryname}</h3> : ""}
       <ul
         className="z-depth-3"
@@ -46,7 +44,6 @@ const Diary = ({
                     float: "right",
                     margin: 10,
                   }}
-                  onClick={() => console.log("added")}
                 >
                   <h3 style={{ marginTop: 10 }}>+</h3>
                 </div>
