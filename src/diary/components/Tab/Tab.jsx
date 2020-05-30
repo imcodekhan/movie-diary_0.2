@@ -27,10 +27,12 @@ const Tab = ({
           style={{
             flex: 4,
             display: "flex",
+
             backgroundColor: movie.watched ? "white" : "grey",
             height: 84,
           }}
           onClick={() => handleTabClick(index)}
+          data-testid="background-flag"
         >
           <img
             style={{ height: 50, width: 50, margin: "15px 15px" }}
@@ -50,6 +52,7 @@ const Tab = ({
           }}
         >
           <i
+            title="delete"
             className="fa fa-trash fa-2x "
             aria-hidden="true"
             onClick={handleDeleteButton}
@@ -64,6 +67,7 @@ const Tab = ({
           }}
         >
           <i
+            title="notes"
             className="fa fa-book fa-2x "
             aria-hidden="true"
             onClick={() => {
@@ -91,6 +95,7 @@ const Tab = ({
 
         {showModal && (
           <div
+            data-testid="modal-flag"
             style={{
               position: "absolute",
               backgroundColor: "bisque",

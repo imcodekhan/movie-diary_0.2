@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  waitForElement,
-} from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "./App";
@@ -44,8 +39,11 @@ it("should navigate to the login page", () => {
   expect(container.firstChild).toHaveTextContent("Email");
 });
 
-it("should submit after 5s", () => {
+it("should submit after 5s", async () => {
   const { container, getByTestId } = renderWithRouter(<App />);
   fireEvent.click(getByTestId("login-link-1"));
-  console.log(getByTestId("login-button"));
+  fireEvent.click(getByTestId("login-button"));
+  // console.log(getByTestId("diary-link"));
+  // const loginStatus = await waitForElement(() => getByTestId("diary-name"));
+  // console.log(loginStatus);
 });
