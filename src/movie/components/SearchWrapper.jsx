@@ -26,6 +26,7 @@ const SearchWrapper = ({
         }}
       >
         <input
+          data-testid="input-flag"
           type="text"
           className={styles.searchTerm}
           onChange={handleChange}

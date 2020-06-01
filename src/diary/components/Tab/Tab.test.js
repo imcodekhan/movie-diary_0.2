@@ -145,5 +145,5 @@ it("should change value on change", () => {
   };
   const { getByPlaceholderText } = render(<Tab {...props4} />);
   fireEvent.input(getByPlaceholderText(props4.movie.note), event);
-  expect(props4.setNewNote).toHaveBeenCalledWith(event.target.value);
+  expect(props4.setNewNote).toHaveBeenCalledWith("hello world");
 });

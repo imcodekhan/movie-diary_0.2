@@ -25,6 +25,7 @@ const MovieCard = ({
         <img src={image} alt={title} height="500" />
 
         <div
+          data-testid="movie-card-flag"
           className="btn-floating halfway-fab waves-effect waves-light red"
           onClick={() => {
             loginStatus
@@ -33,9 +34,9 @@ const MovieCard = ({
           }}
         >
           {favStatus ? (
-            <i className="fa fa-heart" aria-hidden="true"></i>
+            <i className="fa fa-heart" aria-hidden="true" alt="heart"></i>
           ) : (
-            <i className="fa fa-heart-o" aria-hidden="true"></i>
+            <i className="fa fa-heart-o" aria-hidden="true" alt="heart-0"></i>
           )}
         </div>
       </div>

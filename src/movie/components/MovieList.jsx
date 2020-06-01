@@ -28,7 +28,7 @@ const MovieList = ({
             <MovieCard
               key={movie.id}
               id={movie.id}
-              title={movie.title}
+              title={movie.fullTitle}
               image={movie.image}
               handleHeartButton={handleHeartButton}
               favMovies={favMovies}
